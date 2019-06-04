@@ -1,0 +1,28 @@
+Korzystając z języka programowania wskazanego przez Ciebie w formularzu rekrutacyjnym,
+napisz aplikację pokazującą informacje o ruchuMiędzynarodowejStacjiKosmicznej (ISS).
+ Rozwiązanie prześlij w postaci linku do repozytorium lub paczki z samym kodem programu
+ na adres patronage.wroclaw@intive.com.
+
+ Wymagania:
+ • Wykorzystaj dane udostępniane przez API
+ http://open-notify.org/Open-Notify-API/ISS-Location-Now/
+
+ •Przedstaw użytkownikowi następujące dane:
+ oprędkość ISS na podstawie dwóch odczytów,
+ odroga przebyta przez ISS od początku zapisanych odczytów.
+
+ •Program musi dać się łatwo skompilować i uruchomić na standardowym środowisku.
+
+ Kryteria oceny:
+
+ •funkcjonalność
+ •jakość kodu (przejrzystość, utrzymywalność, struktura)
+ •użycie najnowszych technologii
+ •user experience
+ •niezawodność
+
+ Zadanie celowo jest sformułowane bardzo ogólnie.
+ Jeśli coś nie jest określone, możesz zrealizować je w sposób dogodny dla siebie.
+ Nie ma żadnych preferowanych rozwiązań czy technologii poza wymienionymi.
+ Jeśli jesteś w stanie uzasadnić swój wybór, to wystarczy :)
+
