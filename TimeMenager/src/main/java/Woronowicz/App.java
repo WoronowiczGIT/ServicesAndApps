@@ -1,5 +1,9 @@
 package Woronowicz;
 
+import Woronowicz.services.Saver;
+import Woronowicz.services.TaskManager;
+import Woronowicz.services.TaskRepository;
+import Woronowicz.services.TimeManager;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -8,70 +12,133 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-public class App extends Application {
 
-    public static void main(String[] args) throws InterruptedException {launch(args); }
+import java.io.IOException;
+import java.util.HashMap;
+
+public class App extends Application {
     private Stage window;
+    private static Saver saver;
+    private static TaskRepository taskRepository;
+    private static TimeManager timeManager;
+    private static TaskManager taskManager;
+
+    private static Label selectedTask;
+    private static Label timeOfTask;
+
+    private static ChoiceBox<String> choiceBox;
+    Button startTask;
+    Button finishTask;
+
+    public static void main(String[] args) throws InterruptedException, IOException {
+
+        taskRepository = new TaskRepository(0, new HashMap<>());
+        saver = new Saver(taskRepository);
+        saver.loadState();
+        taskManager = new TaskManager(taskRepository);
+        taskManager.selectTask(0);
+        timeManager = new TimeManager(taskRepository);
+
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
-        String programing = "Programing";
-        String reading = "Reading";
-        String tutorials = "Video Tutorials";
-        String kata = "Kata";
-        String games = "Games";
-        // setup defaults
-//        manager.addTask(programing);
-//        manager.addTask(reading);
-//        manager.addTask(tutorials);
-//        manager.addTask(kata);
-//        manager.addTask(games);
-//        manager.selectTask(programing);
-        //read from file / web
         window = primaryStage;
-            window.setTitle("Time Manager");
+        window.setTitle("Time Manager");
         GridPane pane = new GridPane();
-            pane.setPadding(new Insets(20,20,20,20));
-            pane.setVgap(20);
-            pane.setHgap(20);
 
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
-            GridPane.setConstraints(choiceBox,0,0);
 
-//        for (String task: manager.getTasks()) {
-//            choiceBox.getItems().add(task);
-//        }choiceBox.setValue("Programing");
+        choiceBox = new ChoiceBox<>();
+            setChoiceBox(choiceBox);
 
-        Button startTask = new Button("START TASK");
-            GridPane.setConstraints(startTask,1,0);
-            startTask.setOnAction(e-> System.out.println("click"));
 
-        Button finishTask = new Button("FINISH TASK");
-            GridPane.setConstraints(finishTask,1,1);
+        choiceBox.setOnAction(e -> handleSelection(choiceBox));
 
-        window.setOnCloseRequest(e->{ closeProgram(); });
+        startTask = new Button("START TASK");
+        startTask.setOnAction(e -> startTask());
 
-        Label totalTimeLabel =  new Label("total time");
+        finishTask = new Button("FINISH TASK");
+        finishTask.setOnAction(e -> endTask());
 
-        Label totalTimeDisplay =  new Label();
+        window.setOnCloseRequest(e -> closeProgram());
 
-        pane.getChildren().addAll(choiceBox,startTask,finishTask);
-        Scene scene = new Scene(pane,300,300);
-            window.setScene(scene);
-            window.show();
+         selectedTask = new Label();
+            updateSelectionLabel();
+
+
+         timeOfTask = new Label();
+            updateTimeLabel();
+
+        setGreedPane(pane);
+        pane.getChildren().addAll(choiceBox, startTask, finishTask, timeOfTask, selectedTask);
+        Scene scene = new Scene(pane, 300, 300);
+        window.setScene(scene);
+        window.show();
 
 
     }
-    private void closeProgram(){
+
+    private void closeProgram() {
         window.close();
-
+        endTask();
     }
 
+    private void startTask(){
+        choiceBox.setDisable(true);
+        taskManager.startTask();
+    }
 
+    private void endTask(){
+        if(taskManager.isTaskOnGoing()){
+            taskManager.finishTask();
+            taskManager.updateTask();
+            choiceBox.setDisable(false);
+            updateTimeLabel();
+        }
 
+        try {
+            saver.saveState();
+        } catch (IOException e) {
+            System.out.println("failed to save");
+        }
+    }
+    private void updateTimeLabel(){
+        timeOfTask.setText(timeManager.timeTotal(taskManager.getSelectedTask().getId()) + " seconds");
+    }
+    private void updateSelectionLabel(){
+        selectedTask.setText("total time for: \n"
+                + taskManager.getSelectedTask().getName());
+    }
 
+    private void setGreedPane(GridPane pane) {
+        pane.setPadding(new Insets(20, 20, 20, 20));
+        pane.setVgap(20);
+        pane.setHgap(20);
+
+        GridPane.setConstraints(choiceBox, 0, 0);
+
+        GridPane.setConstraints(startTask, 1, 0);
+        GridPane.setConstraints(finishTask, 1, 1);
+
+        GridPane.setConstraints(selectedTask, 0, 2);
+        GridPane.setConstraints(timeOfTask, 1, 2);
+    }
+
+    private void handleSelection(ChoiceBox<String> choiceBox) {
+        String value = choiceBox.getValue();
+        int id = taskRepository.getTaskID(value);
+        taskManager.selectTask(id);
+        System.out.println(taskManager.getSelectedTask().getName());
+        updateTimeLabel();
+        updateSelectionLabel();
+    }
+
+    private void setChoiceBox(ChoiceBox<String> choiceBox) {
+        choiceBox.getItems().addAll(taskRepository.getTasknames());
+        choiceBox.setValue(taskManager.getSelectedTask().getName());
+    }
 
 
 }

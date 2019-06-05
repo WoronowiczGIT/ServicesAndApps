@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskRepository {
+    private int maxNameLength = 25;
     private int primaryKey;
     private Map<Integer,Task> availableTasks;
 
@@ -25,12 +26,14 @@ public class TaskRepository {
     public Task getTask(int taskID){
         return availableTasks.get(taskID);
     }
+
     public void addTask(String name){
         if(isTaskNameDuped(name)) return;
-
+        if(name.length() > maxNameLength) return;
         availableTasks.put(primaryKey,new Task(primaryKey,name));
         primaryKey++;
     }
+
     public void removeTask(int TaskID){
         availableTasks.remove(TaskID);
     }

@@ -9,13 +9,13 @@ public class TaskManager {
     private Task taskSelected;
     private Clock clock;
 
-    TaskManager(TaskRepository repository){
+    public TaskManager(TaskRepository repository){
         this.repository = repository;
         this.clock = new Clock();
     }
     public void selectTask(int id){
         Task newTask = repository.getTask(id);
-        if(newTask != null){
+        if(newTask != null && !clock.isClockTicking()){
             taskSelected = newTask;}
     }
     public Task getSelectedTask(){
@@ -36,6 +36,10 @@ public class TaskManager {
         LocalDateTime start = clock.getTaskStarted();
         LocalDateTime end = clock.getTaskEnded();
         repository.getTask(id).addInterval(start,end);
+    }
+
+    public boolean isTaskOnGoing(){
+        return clock.isClockTicking();
     }
 
 
