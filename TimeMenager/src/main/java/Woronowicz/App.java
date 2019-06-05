@@ -1,6 +1,5 @@
 package Woronowicz;
 
-import Woronowicz.services.TaskManager;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,11 +12,11 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException {launch(args); }
     private Stage window;
-    private static TaskManager manager;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        manager = new TaskManager();
+
         String programing = "Programing";
         String reading = "Reading";
         String tutorials = "Video Tutorials";

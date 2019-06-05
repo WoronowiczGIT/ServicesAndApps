@@ -2,49 +2,41 @@ package Woronowicz.services;
 
 import Woronowicz.Models.Task;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class TaskManager {
-
-    private Calendar calendar;
+    private TaskRepository repository;
+    private Task taskSelected;
     private Clock clock;
-    private boolean ongoingTask;
-    private Task selectedTask;
 
-    public TaskManager() {
-        clock = new Clock();
-        calendar = new Calendar();
-        selectedTask = new Task("placeholderTask");
-        ongoingTask = false;
+    TaskManager(TaskRepository repository){
+        this.repository = repository;
+        this.clock = new Clock();
     }
-    public void selectTask(Task task){
-        selectedTask = task;
+    public void selectTask(int id){
+        Task newTask = repository.getTask(id);
+        if(newTask != null){
+            taskSelected = newTask;}
+    }
+    public Task getSelectedTask(){
+        return taskSelected;
     }
 
     public void startTask(){
-        if(ongoingTask) return;
-        ongoingTask = true;
+        if(clock.isClockTicking()) return;
         clock.start();
     }
-    public void endTask() {
-        if (!ongoingTask) return;
+    public void finishTask(){
+        if(!clock.isClockTicking()) return;
         clock.finish();
-        ongoingTask = false;
     }
-    public void updateTask(){
-        List<Task> tasks = calendar.getTasksFromDay(LocalDate.now());
-        long time = clock.getDuration();
-        if(calendar.isCalendarEmpty()) calendar.addDay();
 
-        for (int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i) == selectedTask){
-                tasks.get(i).addTime(time);
-                return;
-            }
-        }
-        selectedTask.addTime(time);
-        calendar.getTasksFromDay(LocalDate.now()).add(selectedTask);
+    public void updateTask(){
+        int id = taskSelected.getId();
+        LocalDateTime start = clock.getTaskStarted();
+        LocalDateTime end = clock.getTaskEnded();
+        repository.getTask(id).addInterval(start,end);
     }
+
 
 }

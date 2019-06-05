@@ -1,25 +1,36 @@
 package Woronowicz.services;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class Clock {
-     private LocalDateTime taskStarted;
-     private LocalDateTime taskEnded;
-     private long duration;
+    private LocalDateTime taskStarted;
+    private LocalDateTime taskEnded;
+    private boolean isTicking;
 
-    public long getDuration(){
-        duration = ChronoUnit.SECONDS.between(taskStarted,taskEnded);
-        if(duration < 0) return 0;
-        return duration;
+    public Clock() {
+        isTicking = false;
     }
 
     public void start() {
+        if(isTicking) return;
+        isTicking = true;
         taskStarted = LocalDateTime.now();
     }
 
     public void finish() {
+        if(!isTicking) return;
+        isTicking = false;
         taskEnded = LocalDateTime.now();
+    }
+
+    public boolean isClockTicking(){
+        return isTicking;
+    }
+    public LocalDateTime getTaskStarted(){
+        return taskStarted;
+    }
+    public LocalDateTime getTaskEnded(){
+        return taskEnded;
     }
 
 

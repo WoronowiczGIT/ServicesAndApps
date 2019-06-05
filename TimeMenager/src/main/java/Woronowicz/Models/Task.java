@@ -1,23 +1,36 @@
 package Woronowicz.Models;
 
-public class Task {
-    private String name;
-    private long timeSpentMinutes;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-    public Task(String name) {
+public class Task {
+    private Integer id;
+    private String name;
+    private Map<LocalDateTime,LocalDateTime> interval;
+
+    public Task(Integer id, String name){
+        interval = new HashMap<>();
         this.name = name;
-        timeSpentMinutes = 0;
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
-
-    public long getTime() {
-        return timeSpentMinutes;
+    public void setName(String name){
+        this.name=name;
     }
 
-    public void addTime(long seconds) {
-        timeSpentMinutes += seconds;
+    public Map<LocalDateTime, LocalDateTime> getIntervals() {
+        return interval;
+    }
+
+    public void addInterval(LocalDateTime start, LocalDateTime finish){
+        interval.put(start,finish);
     }
 }
