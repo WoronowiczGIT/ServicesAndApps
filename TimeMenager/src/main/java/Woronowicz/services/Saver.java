@@ -36,7 +36,7 @@ public class Saver {
         BufferedReader reader = new BufferedReader(new FileReader(logs));
 
         reader.lines().forEach(line -> {
-            if(line.length() < 30){
+            if(line.length() < 21){
                 repository.addTask(line);
                 currentID = repository.getTaskID(line);
             }else {

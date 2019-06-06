@@ -120,6 +120,8 @@ public class App extends Application {
     private void startTask() {
         choiceBox.setDisable(true);
         taskManager.startTask();
+        startTask.setDisable(true);
+        finishTask.setDisable(false);
     }
 
     private void endTask() {
@@ -128,6 +130,8 @@ public class App extends Application {
             taskManager.updateTask();
             choiceBox.setDisable(false);
             updateTimeLabel();
+            startTask.setDisable(false);
+            finishTask.setDisable(true);
         }
 
         try {
