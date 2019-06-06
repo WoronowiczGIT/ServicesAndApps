@@ -9,6 +9,7 @@ public class Saver {
     private FtpConnection connection;
     private TaskRepository repository;
     private File logs = new File("./src/resources/logs.csv");
+    private File temp = new File("./src/resources/temp.csv");
     private String remoteFile = "/logs.csv";
     private String pattern = "yyyy-MM-dd HH:mm:ss";
     private static int currentID;
@@ -53,14 +54,18 @@ public class Saver {
     public void downloadLogs() throws IOException {
         try{
         String remoteFile = this.remoteFile;
-        File downloadedFile = logs;
+
+        File downloadedFile = temp;
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadedFile));
         boolean success = connection.getClient().retrieveFile(remoteFile, outputStream);
         outputStream.close();
 
         if (success) {
-            System.out.println("File #1 has been downloaded successfully.");
-        }}catch(FileNotFoundException e){
+            System.out.println("Log file has been downloaded successfully.");
+            logs = temp;
+        }else throw new FileNotFoundException();
+
+        }catch(FileNotFoundException e){
             System.out.println("no remote log file");
         }
     }
