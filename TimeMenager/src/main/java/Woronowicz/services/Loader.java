@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
-public class Saver {
+public class Loader {
     private FtpConnection connection;
     private TaskRepository repository;
     private File logs = new File("./src/resources/logs.csv");
@@ -15,7 +15,7 @@ public class Saver {
     private static int currentID;
     private DateTimeFormatter formatter;
 
-    public Saver(TaskRepository repository, FtpConnection connection) throws IOException {
+    public Loader(TaskRepository repository, FtpConnection connection) throws IOException {
         this.formatter = DateTimeFormatter.ofPattern(pattern);
         this.repository = repository;
         this.connection = connection;
@@ -48,7 +48,7 @@ public class Saver {
                         .addInterval(start,time);
             }
         });
-        System.out.println("loaded successful");
+        System.out.println("Local load successful");
     }
 
     public void downloadLogs() throws IOException {
@@ -62,7 +62,7 @@ public class Saver {
 
         if (success) {
             System.out.println("Log file has been downloaded successfully.");
-            temp = logs;
+            logs = temp;
         }else throw new FileNotFoundException();
 
         }catch(FileNotFoundException e){

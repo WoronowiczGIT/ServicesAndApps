@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class App extends Application {
     private Stage window;
     private static FtpConnection connection;
-    private static Saver saver;
+    private static Loader saver;
     private static TaskRepository taskRepository;
     private static TimeManager timeManager;
     private static TaskManager taskManager;
@@ -41,7 +41,7 @@ public class App extends Application {
 
         connection = new FtpConnection();
 
-        saver = new Saver(taskRepository, connection);
+        saver = new Loader(taskRepository, connection);
 
         taskManager = new TaskManager(taskRepository);
         taskManager.selectTask(0);
@@ -58,9 +58,6 @@ public class App extends Application {
                     if(taskManager.isTaskOnGoing()){
                         updateTimeOfCurrentTask(seconds/10);
                         seconds++;
-                    }else {
-                        seconds = 0;
-                        updateTimeOfCurrentTask(seconds);
                     }
                 }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -70,16 +67,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         window = primaryStage;
         window.setTitle("Time Manager");
         GridPane pane = new GridPane();
 
-
         choiceBox = new ChoiceBox<>();
         setChoiceBox(choiceBox);
-
-
         choiceBox.setOnAction(e -> handleSelection(choiceBox));
 
         startTask = new Button("START TASK");
@@ -88,19 +81,20 @@ public class App extends Application {
         finishTask = new Button("FINISH TASK");
         finishTask.setOnAction(e -> endTask());
 
-        window.setOnCloseRequest(e -> closeProgram());
-
         selectedTask = new Label();
             updateSelectionLabel();
         timeOfTask = new Label();
             updateTimeLabel();
         timeOfCurrentTask = new Label();
             updateTimeOfCurrentTask(0);
+
         setGreedPane(pane);
         pane.getChildren().addAll(choiceBox, startTask, finishTask, timeOfTask, selectedTask, timeOfCurrentTask);
         Scene scene = new Scene(pane, 300, 300);
+
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> closeProgram());
     }
 
     private void closeProgram() {
@@ -118,6 +112,7 @@ public class App extends Application {
     }
 
     private void startTask() {
+        seconds = 0;
         choiceBox.setDisable(true);
         taskManager.startTask();
         startTask.setDisable(true);
@@ -126,6 +121,7 @@ public class App extends Application {
 
     private void endTask() {
         if (taskManager.isTaskOnGoing()) {
+
             taskManager.finishTask();
             taskManager.updateTask();
             choiceBox.setDisable(false);
