@@ -39,18 +39,19 @@ public class Saver {
                 repository.addTask(line);
                 currentID = repository.getTaskID(line);
             }else {
-                String[] dates = line.split(",");
-                LocalDateTime start = LocalDateTime.parse(dates[0], formatter);
-                LocalDateTime finish = LocalDateTime.parse(dates[1], formatter);
+                String[] fields = line.split(",");
+                LocalDateTime start = LocalDateTime.parse(fields[0], formatter);
+                int time = Integer.parseInt(fields[1]);
                 repository
                         .getTask(currentID)
-                        .addInterval(start,finish);
+                        .addInterval(start,time);
             }
         });
         System.out.println("loaded successful");
     }
 
     public void downloadLogs() throws IOException {
+        try{
         String remoteFile = this.remoteFile;
         File downloadedFile = logs;
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadedFile));
@@ -59,6 +60,8 @@ public class Saver {
 
         if (success) {
             System.out.println("File #1 has been downloaded successfully.");
+        }}catch(FileNotFoundException e){
+            System.out.println("no remote log file");
         }
     }
 
@@ -91,11 +94,11 @@ public class Saver {
         for (String name : repository.getTasknames()) {
             writer.write(name+"\n");
             int id = repository.getTaskID(name);
-            Set<LocalDateTime> dates = repository.getTask(id).getIntervals().keySet();
+            Set<LocalDateTime> dates = repository.getTask(id).getDuration().keySet();
 
             for (LocalDateTime date: dates) {
                 writer.write(formatter.format(date)+",");
-                writer.write(formatter.format(repository.getTask(id).getIntervals().get(date))+"\n");
+                writer.write(String.valueOf(repository.getTask(id).getDuration().get(date))+"\n");
             }
         }
         writer.close();

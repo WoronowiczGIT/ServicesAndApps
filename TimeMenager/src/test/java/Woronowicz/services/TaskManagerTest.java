@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class TaskManagerTest {
@@ -38,13 +37,9 @@ public class TaskManagerTest {
             manager.updateTask();
 
         }
-        Assert.assertEquals(intervals, manager.getSelectedTask().getIntervals().keySet().size());
+        Assert.assertEquals(intervals, manager.getSelectedTask().getDuration().keySet().size());
 
-        Assert.assertFalse(repository.getTask(0).getIntervals().keySet().isEmpty());
-
-        for (LocalDateTime key : manager.getSelectedTask().getIntervals().keySet()) {
-            Assert.assertTrue(manager.getSelectedTask().getIntervals().get(key).isAfter(key));
-        }
+        Assert.assertFalse(repository.getTask(0).getDuration().keySet().isEmpty());
 
     }
 

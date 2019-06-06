@@ -3,6 +3,7 @@ package Woronowicz.services;
 import Woronowicz.Models.Task;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class TaskManager {
     private TaskRepository repository;
@@ -35,7 +36,9 @@ public class TaskManager {
         int id = taskSelected.getId();
         LocalDateTime start = clock.getTaskStarted();
         LocalDateTime end = clock.getTaskEnded();
-        repository.getTask(id).addInterval(start,end);
+
+        long time = start.until(end, ChronoUnit.SECONDS);
+        repository.getTask(id).addInterval(start,(int)time);
     }
 
     public boolean isTaskOnGoing(){

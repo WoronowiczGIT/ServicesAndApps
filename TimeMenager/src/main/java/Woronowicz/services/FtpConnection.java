@@ -23,21 +23,25 @@ public class FtpConnection {
     }
 
     public void connectionSetup() throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader(new FileReader(configFile));
-        List<String> info = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(configFile));
+            List<String> info = new ArrayList<>();
 
-        reader.lines().forEach(line -> {
-            String[] data = line.split(": ");
-            info.add(data[1]);
-        });
-        if(info.size() < 4){
-            System.out.println("incorrect info");
-            return;
+            reader.lines().forEach(line -> {
+                String[] data = line.split(": ");
+                info.add(data[1]);
+            });
+            if (info.size() < 4) {
+                System.out.println("incorrect info");
+                return;
+            }
+            ftpAddress = info.get(0);
+            port = Integer.parseInt(info.get(1));
+            userName = info.get(2);
+            password = info.get(3);
+        }catch (FileNotFoundException e){
+            System.out.println("failed to read connection file");
         }
-        ftpAddress = info.get(0);
-        port = Integer.parseInt(info.get(1));
-        userName = info.get(2);
-        password = info.get(3);
     }
     public void connect(){
         client = new FTPClient();

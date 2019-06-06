@@ -4,7 +4,6 @@ import Woronowicz.Models.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class TimeManager {
     private TaskRepository repository;
@@ -16,10 +15,11 @@ public class TimeManager {
     public int timeDaily(int taskID, LocalDate day) {
         Task task = repository.getTask(taskID);
         if (task.equals(null)) return 0;
+
         int time = 0;
-        for (LocalDateTime key : task.getIntervals().keySet()) {
+        for (LocalDateTime key : task.getDuration().keySet()) {
             if (key.toLocalDate().equals(day)) {
-                time += key.until(task.getIntervals().get(key), ChronoUnit.SECONDS);
+                time += task.getDuration().get(key);
             }
         }
         return time;
@@ -29,8 +29,8 @@ public class TimeManager {
         Task task = repository.getTask(taskID);
         if (task.equals(null)) return 0;
         int time = 0;
-        for (LocalDateTime key : task.getIntervals().keySet()) {
-            time += key.until(task.getIntervals().get(key), ChronoUnit.SECONDS);
+        for (LocalDateTime key : task.getDuration().keySet()) {
+            time += task.getDuration().get(key);
         }
         return time;
     }

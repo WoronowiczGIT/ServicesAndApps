@@ -7,7 +7,7 @@ import java.util.Map;
 public class Task {
     private Integer id;
     private String name;
-    private Map<LocalDateTime,LocalDateTime> interval;
+    private Map<LocalDateTime,Integer> interval;
 
     public Task(Integer id, String name){
         interval = new HashMap<>();
@@ -27,11 +27,11 @@ public class Task {
         this.name=name;
     }
 
-    public Map<LocalDateTime, LocalDateTime> getIntervals() {
+    public Map<LocalDateTime, Integer> getDuration() {
         return interval;
     }
 
-    public void addInterval(LocalDateTime start, LocalDateTime finish){
-        interval.put(start,finish);
+    public void addInterval(LocalDateTime start, Integer time){
+        interval.put(start,time);
     }
 }
