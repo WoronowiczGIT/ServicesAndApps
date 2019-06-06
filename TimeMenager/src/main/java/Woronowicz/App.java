@@ -1,9 +1,9 @@
 package Woronowicz;
 
-import Woronowicz.services.Saver;
-import Woronowicz.services.TaskManager;
-import Woronowicz.services.TaskRepository;
-import Woronowicz.services.TimeManager;
+import Woronowicz.services.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,12 +12,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 public class App extends Application {
     private Stage window;
+    private static FtpConnection connection;
     private static Saver saver;
     private static TaskRepository taskRepository;
     private static TimeManager timeManager;
@@ -25,22 +27,46 @@ public class App extends Application {
 
     private static Label selectedTask;
     private static Label timeOfTask;
+    private static Label timeOfCurrentTask;
 
     private static ChoiceBox<String> choiceBox;
     Button startTask;
     Button finishTask;
 
+    static int seconds = 0;
+
     public static void main(String[] args) throws InterruptedException, IOException {
 
         taskRepository = new TaskRepository(0, new HashMap<>());
-        saver = new Saver(taskRepository);
-        saver.loadState();
+
+        connection = new FtpConnection();
+
+        saver = new Saver(taskRepository, connection);
+
         taskManager = new TaskManager(taskRepository);
         taskManager.selectTask(0);
         timeManager = new TimeManager(taskRepository);
-
+        timer();
         launch(args);
     }
+
+    public static void timer(){
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(100),
+                e -> {
+                    if(taskManager.isTaskOnGoing()){
+                        updateTimeOfCurrentTask(seconds/10);
+                        seconds++;
+                    }else {
+                        seconds = 0;
+                        updateTimeOfCurrentTask(seconds);
+                    }
+                }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -51,7 +77,7 @@ public class App extends Application {
 
 
         choiceBox = new ChoiceBox<>();
-            setChoiceBox(choiceBox);
+        setChoiceBox(choiceBox);
 
 
         choiceBox.setOnAction(e -> handleSelection(choiceBox));
@@ -64,34 +90,40 @@ public class App extends Application {
 
         window.setOnCloseRequest(e -> closeProgram());
 
-         selectedTask = new Label();
+        selectedTask = new Label();
             updateSelectionLabel();
-
-
-         timeOfTask = new Label();
+        timeOfTask = new Label();
             updateTimeLabel();
-
+        timeOfCurrentTask = new Label();
+            updateTimeOfCurrentTask(0);
         setGreedPane(pane);
-        pane.getChildren().addAll(choiceBox, startTask, finishTask, timeOfTask, selectedTask);
+        pane.getChildren().addAll(choiceBox, startTask, finishTask, timeOfTask, selectedTask, timeOfCurrentTask);
         Scene scene = new Scene(pane, 300, 300);
         window.setScene(scene);
         window.show();
-
-
     }
 
     private void closeProgram() {
         window.close();
-        endTask();
+        if (taskManager.isTaskOnGoing()) {
+            taskManager.finishTask();
+            taskManager.updateTask();
+        }
+        try {
+            saver.saveRemote();
+        } catch (IOException e) {
+            System.out.println("failed to saveRemote");
+        }
+
     }
 
-    private void startTask(){
+    private void startTask() {
         choiceBox.setDisable(true);
         taskManager.startTask();
     }
 
-    private void endTask(){
-        if(taskManager.isTaskOnGoing()){
+    private void endTask() {
+        if (taskManager.isTaskOnGoing()) {
             taskManager.finishTask();
             taskManager.updateTask();
             choiceBox.setDisable(false);
@@ -99,17 +131,23 @@ public class App extends Application {
         }
 
         try {
-            saver.saveState();
+            saver.saveLocal();
         } catch (IOException e) {
-            System.out.println("failed to save");
+            System.out.println("failed to saveLocal");
         }
     }
-    private void updateTimeLabel(){
+
+    private void updateTimeLabel() {
         timeOfTask.setText(timeManager.timeTotal(taskManager.getSelectedTask().getId()) + " seconds");
     }
-    private void updateSelectionLabel(){
+
+    private void updateSelectionLabel() {
         selectedTask.setText("total time for: \n"
                 + taskManager.getSelectedTask().getName());
+    }
+
+    private static void updateTimeOfCurrentTask(int i){
+        timeOfCurrentTask.setText(i+" seconds");
     }
 
     private void setGreedPane(GridPane pane) {
@@ -124,6 +162,7 @@ public class App extends Application {
 
         GridPane.setConstraints(selectedTask, 0, 2);
         GridPane.setConstraints(timeOfTask, 1, 2);
+        GridPane.setConstraints(timeOfCurrentTask, 1, 3);
     }
 
     private void handleSelection(ChoiceBox<String> choiceBox) {
