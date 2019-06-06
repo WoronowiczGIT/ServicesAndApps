@@ -62,7 +62,7 @@ public class Saver {
 
         if (success) {
             System.out.println("Log file has been downloaded successfully.");
-            logs = temp;
+            temp = logs;
         }else throw new FileNotFoundException();
 
         }catch(FileNotFoundException e){

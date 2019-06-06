@@ -22,3 +22,8 @@ port APP to android
 modify look
 
 
+FTP Server: ftp.drivehq.com
+FTP Port number: 21
+Username: JavaCloudFtp
+pass: ShutUp4ndFTP
+
