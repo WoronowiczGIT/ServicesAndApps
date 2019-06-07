@@ -33,7 +33,7 @@ public class Loader {
     }
 
     public void loadLocal() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(logs));
+        BufferedReader reader = new BufferedReader(new FileReader(temp));
 
         reader.lines().forEach(line -> {
             if(line.length() < 21){

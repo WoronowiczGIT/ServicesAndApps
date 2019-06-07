@@ -2,22 +2,26 @@ package Woronowicz.controller;
 
 import Woronowicz.services.*;
 import Woronowicz.view.MainView;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
-
 public class MainViewController {
-    private static MainView view;
-    private static Loader loader;
-    private static TaskRepository taskRepository;
-    private static TimeManager timeManager;
-    private static TaskManager taskManager;
+
+    private  static MainView view;
+    private  Loader loader;
+    private  TaskRepository taskRepository;
+    private  TimeManager timeManager;
+    private  static TaskManager taskManager;
 
     static int seconds = 0;
 
-    public MainViewController(TaskManager taskManager, TimeManager timeManager, TaskRepository taskRepository, Loader loader, MainView view) throws IOException {
+    public MainViewController(TaskManager taskManager, TimeManager timeManager, TaskRepository taskRepository, Loader loader, MainView view){
         this.view = view;
 
         this.loader = loader;
@@ -31,6 +35,25 @@ public class MainViewController {
         this.view.getWindow().setOnCloseRequest(closeProgram);
 
         setChoiceBox();
+        timer();
+    }
+
+
+    public static void timer(){
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(100),
+                e -> {
+                    if(taskManager.isTaskOnGoing()){
+                        updateTimeOfCurrentTask(seconds/10);
+                        seconds++;
+                    }
+                }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+    private static void updateTimeOfCurrentTask(int i) {
+        view.getTimeOfCurrentTask().setText(i + " seconds");
     }
 
     private EventHandler starTaskClicked = new EventHandler() {
@@ -60,6 +83,7 @@ public class MainViewController {
 
         }
     };
+
     private EventHandler finishTask = new EventHandler() {
         @Override
         public void handle(Event event) {
@@ -112,8 +136,5 @@ public class MainViewController {
         view.getSelectedTask().setText("total time for: \n"
                 + taskManager.getSelectedTask().getName());
     }
-
-
-
 
 }

@@ -2,28 +2,25 @@ package Woronowicz.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainView{
+public class MainView {
 
     private Stage window;
-    private static Label selectedTask;
-    private static Label timeOfTask;
-    private static Label timeOfCurrentTask;
+    private Label selectedTask;
+    private Label timeOfTask;
+    private Label timeOfCurrentTask;
 
-    private static ChoiceBox<String> choiceBox;
+    private ChoiceBox<String> choiceBox;
     private Button startTask;
     private Button finishTask;
+    private MenuBar menuBar;
 
-    public void display(Stage stage) {
-        window = stage;
-        window.setTitle("Time Manager");
-        GridPane pane = new GridPane();
-
+    public MainView(MenuBar menu){
+        menuBar = menu;
         choiceBox = new ChoiceBox<>();
 
         startTask = new Button("START TASK");
@@ -33,15 +30,22 @@ public class MainView{
         timeOfTask = new Label();
         timeOfCurrentTask = new Label();
 
+    }
+
+    public void display(Stage stage) {
+        window = stage;
+        window.setTitle("Time Manager");
+        GridPane pane = new GridPane();
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(menuBar,pane);
+
         setGreedPane(pane);
         pane.getChildren().addAll(choiceBox, startTask, finishTask, timeOfTask, selectedTask, timeOfCurrentTask);
-        Scene scene = new Scene(pane, 300, 300);
+        Scene scene = new Scene(vbox, 210, 200);
 
         window.setScene(scene);
-        window.setMinWidth(250);
-        window.setMinHeight(250);
+        window.setResizable(false);
         window.show();
-
     }
 
     private void setGreedPane(GridPane pane) {
@@ -50,6 +54,7 @@ public class MainView{
         pane.setHgap(20);
 
         GridPane.setConstraints(choiceBox, 0, 0);
+        GridPane.setConstraints(menuBar, 0, 0);
 
         GridPane.setConstraints(startTask, 1, 0);
         GridPane.setConstraints(finishTask, 1, 1);
@@ -63,19 +68,19 @@ public class MainView{
         return window;
     }
 
-    public static Label getSelectedTask() {
+    public Label getSelectedTask() {
         return selectedTask;
     }
 
-    public static Label getTimeOfTask() {
+    public Label getTimeOfTask() {
         return timeOfTask;
     }
 
-    public static Label getTimeOfCurrentTask() {
+    public Label getTimeOfCurrentTask() {
         return timeOfCurrentTask;
     }
 
-    public static ChoiceBox<String> getChoiceBox() {
+    public ChoiceBox<String> getChoiceBox() {
         return choiceBox;
     }
 

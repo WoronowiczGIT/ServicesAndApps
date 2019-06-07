@@ -17,32 +17,44 @@ public class FtpConnection {
     private String password;
     private FTPClient client;
 
-    public FtpConnection() throws FileNotFoundException {
+    public FtpConnection(){
         this.configFile = new File(localPath+fileName);
-        connectionSetup();
+        List<String> data = readData(configFile);
+        setupConnection(data);
     }
-
-    public void connectionSetup() throws FileNotFoundException {
+    public List<String> readData(File file){
+        List<String> info = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(configFile));
-            List<String> info = new ArrayList<>();
-
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             reader.lines().forEach(line -> {
                 String[] data = line.split(": ");
                 info.add(data[1]);
             });
-            if (info.size() < 4) {
-                System.out.println("incorrect info");
-                return;
-            }
+
+        }catch (FileNotFoundException e){
+            System.out.println("file not found");
+        }
+        return info;
+    }
+    public boolean validateFroamt(List<String> info){
+       return info.size() == 4;
+    }
+
+    public boolean setupConnection(List<String> info){
+        if(!validateFroamt(info)) return false;
+
+        try {
             ftpAddress = info.get(0);
             port = Integer.parseInt(info.get(1));
             userName = info.get(2);
             password = info.get(3);
-        }catch (FileNotFoundException e){
-            System.out.println("failed to read connection file");
+        }catch (NumberFormatException e){
+            System.out.println("incorrect connection data");
+            return false;
         }
+        return true;
     }
+
     public void connect(){
         client = new FTPClient();
         try {
@@ -67,5 +79,21 @@ public class FtpConnection {
 
     public FTPClient getClient(){
         return this.client;
+    }
+
+    public void setFtpAddress(String ftpAddress) {
+        this.ftpAddress = ftpAddress;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
