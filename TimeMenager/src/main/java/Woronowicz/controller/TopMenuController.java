@@ -1,5 +1,6 @@
 package Woronowicz.controller;
 
+import Woronowicz.services.FtpConnection;
 import Woronowicz.view.ConnectionBox;
 import Woronowicz.view.TopMenuView;
 import javafx.event.Event;
@@ -7,19 +8,23 @@ import javafx.event.EventHandler;
 
 public class TopMenuController {
     private TopMenuView menu;
+    private FtpConnection ftpConnection;
 
-    public TopMenuController(TopMenuView topMenu){
+    public TopMenuController(TopMenuView topMenu, FtpConnection ftpConnection){
         menu = topMenu;
-        menu.getConnection().setOnAction(connection);
+        this.ftpConnection = ftpConnection;
+        menu.getConnection().setOnAction(connectionMenu);
         menu.getTasks().setOnAction(tasks);
         menu.getExit().setOnAction(exit);
     }
 
-    private EventHandler connection = new EventHandler() {
+    private EventHandler connectionMenu = new EventHandler() {
         @Override
         public void handle(Event event) {
-        ConnectionBox con = new ConnectionBox();
-        con.display();
+        ConnectionBox cv = new ConnectionBox();
+        new ConnectionBoxController(ftpConnection,cv);
+        cv.display();
+
         }
     };
 

@@ -33,9 +33,8 @@ public class App extends Application {
         taskManager.selectTask(0);
         timeManager = new TimeManager(taskRepository);
 
-
         TopMenuView topMenuView = new TopMenuView();
-        TMController = new TopMenuController(topMenuView);
+        TMController = new TopMenuController(topMenuView,connection);
 
         view = new MainView(topMenuView.getMenuBar());
         launch(args);

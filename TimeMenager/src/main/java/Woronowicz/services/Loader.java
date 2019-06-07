@@ -89,7 +89,7 @@ public class Loader {
         boolean done = connection.getClient().storeFile(firstRemoteFile, inputStream);
         inputStream.close();
         if (done) {
-            System.out.println("logs uploaded successfully.");
+            System.out.println("remote save successful.");
         }
     }
 
@@ -107,7 +107,7 @@ public class Loader {
             }
         }
         writer.close();
-        System.out.println("saved successful");
+        System.out.println("local save successful");
     }
 
 

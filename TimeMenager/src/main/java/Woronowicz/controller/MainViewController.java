@@ -76,6 +76,7 @@ public class MainViewController {
                 taskManager.updateTask();
             }
             try {
+
                 loader.saveRemote();
             } catch (IOException e) {
                 System.out.println("failed to saveRemote");

@@ -2,10 +2,7 @@ package Woronowicz.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,7 +15,7 @@ public class ConnectionBox {
     private TextField addressField;
     private TextField portField;
     private TextField usernameField;
-    private TextField passwordField;
+    private PasswordField passwordField;
     private CheckBox rememberMeCheckBox;
     private Button applyBtn;
 
@@ -33,9 +30,7 @@ public class ConnectionBox {
         window.setTitle("Connection");
         pane = new GridPane();
         scene = new Scene(pane, 300, 250);
-    }
 
-    public void display() {
         addressField = new TextField();
         addressLabel = new Label("Server adress: ");
 
@@ -45,7 +40,8 @@ public class ConnectionBox {
         usernameField = new TextField();
         usernameLabel = new Label("Username: ");
 
-        passwordField = new TextField();
+        passwordField = new PasswordField();
+
         passwordLabel = new Label("Password: ");
 
         rememberMeCheckBox = new CheckBox("Remember me");
@@ -58,6 +54,10 @@ public class ConnectionBox {
         pane.setHgap(20);
 
         setupGridPane();
+    }
+
+    public void display() {
+
         window.setResizable(false);
         window.setScene(scene);
         window.showAndWait();
@@ -93,7 +93,7 @@ public class ConnectionBox {
         return usernameField;
     }
 
-    public TextField getPasswordField() {
+    public PasswordField getPasswordField() {
         return passwordField;
     }
 

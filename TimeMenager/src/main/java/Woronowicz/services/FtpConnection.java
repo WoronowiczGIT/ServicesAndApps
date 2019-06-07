@@ -52,7 +52,9 @@ public class FtpConnection {
             System.out.println("incorrect connection data");
             return false;
         }
+        System.out.println("connection setup");
         return true;
+
     }
 
     public void connect(){
@@ -65,6 +67,7 @@ public class FtpConnection {
         }catch (IOException e){
             System.out.println("connection failed");
         }
+        System.out.println("connected to server");
     }
     public void disconnect(){
         try {
@@ -75,6 +78,7 @@ public class FtpConnection {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        System.out.println("disconnected from server");
     }
 
     public FTPClient getClient(){
