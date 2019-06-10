@@ -1,15 +1,18 @@
 package Woronowicz.controller;
 
+import Woronowicz.App;
 import Woronowicz.services.FtpConnection;
 import Woronowicz.view.ConnectionBox;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.List;
 
 public class ConnectionBoxController {
+    private static Logger logger = Logger.getLogger(App.class.getName());
+
     private ConnectionBox boxView;
     private FtpConnection connection;
     private File configFile;
@@ -18,14 +21,16 @@ public class ConnectionBoxController {
     private List<String> data;
 
     ConnectionBoxController(FtpConnection connection, ConnectionBox boxView) {
+
         configFile = new File(localPath + fileName);
         this.connection = connection;
         this.boxView = boxView;
 
-        boxView.getAddressField().setOnAction(changeAddress);
-        boxView.getPortField().setOnAction(changePort);
-        boxView.getUsernameField().setOnAction(changeUsername);
-        boxView.getPasswordField().setOnAction(changePassword);
+        boxView.getAddressField().setOnKeyTyped(changeAddress);
+        boxView.getPortField().setOnKeyTyped(changePort);
+        boxView.getUsernameField().setOnKeyTyped(changeUsername);
+        boxView.getPasswordField().setOnKeyTyped(changePassword);
+
         boxView.getApplyBtn().setOnAction(applyChanges);
 
         readCurrentData();
@@ -34,7 +39,8 @@ public class ConnectionBoxController {
     public void readCurrentData() {
         data = connection.readData(configFile);
         if (connection.validateFroamt(data)) {
-            System.out.println("loading metadata");
+           // System.out.println("loading metadata");
+            logger.info("reading connection data from filedata");
             boxView.getAddressField().setText(data.get(0));
             boxView.getPortField().setText(data.get(1));
             boxView.getUsernameField().setText(data.get(2));
@@ -80,6 +86,7 @@ public class ConnectionBoxController {
         @Override
         public void handle(Event event) {
            connection.setupConnection(data);
+            System.out.println("changes applied");
         }
     };
 

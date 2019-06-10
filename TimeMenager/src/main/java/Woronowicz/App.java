@@ -8,10 +8,12 @@ import Woronowicz.view.TopMenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 
 public class App extends Application {
+
     private static FtpConnection connection;
     private static Loader loader;
     private static TaskRepository taskRepository;

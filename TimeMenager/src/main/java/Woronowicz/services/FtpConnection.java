@@ -18,6 +18,7 @@ public class FtpConnection {
     private FTPClient client;
 
     public FtpConnection(){
+        client = new FTPClient();
         this.configFile = new File(localPath+fileName);
         List<String> data = readData(configFile);
         setupConnection(data);
@@ -58,7 +59,7 @@ public class FtpConnection {
     }
 
     public void connect(){
-        client = new FTPClient();
+
         try {
             client.connect(ftpAddress, port);
             client.login(userName, password);
