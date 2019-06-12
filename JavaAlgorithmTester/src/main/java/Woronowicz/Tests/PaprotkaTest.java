@@ -29,7 +29,7 @@ public class PaprotkaTest  implements Test {
         for (PaprotkaPattern pattern: PaprotkaPattern.values()) {
             messege = " passed";
             //sendParametersToFile(pattern);
-            Process process = papLaunch(file,params);
+            Process process = launch(file,params);
             is = process.getInputStream();
             os = process.getOutputStream();
 
@@ -47,18 +47,18 @@ public class PaprotkaTest  implements Test {
                 i++;
             });
             i = 0;
-            writer.write(pattern.name() + messege+"\n");
+            writer.write(pattern.name() + messege);
+            writer.newLine();
         }
 
         writer.close();
     }
-    Process papLaunch(File file,String[] parameters) throws IOException {
-        Process process = new ProcessBuilder()
-                .command(parameters)
-                .directory(new File(file.getParent()))
-                .start();
-        return process;
+
+    @Override
+    public File getResult() {
+        return result;
     }
+
 
 }
 

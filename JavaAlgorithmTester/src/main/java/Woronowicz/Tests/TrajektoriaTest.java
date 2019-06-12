@@ -24,7 +24,7 @@ public class TrajektoriaTest  implements Test {
             params[2] = pattern.getAmp();
             params[3] = pattern.getLength();
 
-            is = launch(file,params);
+            is = launch(file,params).getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
 
 
@@ -36,8 +36,14 @@ public class TrajektoriaTest  implements Test {
                 i++;
             });
             i = 0;
-            writer.write(pattern.name() + messege+"\n");
+            writer.write(pattern.name() + messege);
+            writer.newLine();
         }
         writer.close();
+    }
+
+    @Override
+    public File getResult() {
+        return result;
     }
 }

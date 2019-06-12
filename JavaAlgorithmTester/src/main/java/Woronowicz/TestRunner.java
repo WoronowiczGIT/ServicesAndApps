@@ -35,7 +35,7 @@ public class TestRunner {
         Test myTest = selector.SelectTest(compiledFile);
 
         myTest.runTest(compiledFile);
-        // run test
+        myTest.displayScore(myTest.getResult());
         // display
         // clean
     }

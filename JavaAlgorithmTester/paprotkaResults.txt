@@ -13,3 +13,4 @@ A10B225 passed
 A0Be passed
 AeB0 passed
 AeBe passed
+failTest failed

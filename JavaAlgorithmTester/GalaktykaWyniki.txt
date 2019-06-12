@@ -1,0 +1,14 @@
+W1 passed
+S1 passed
+E1 failed
+N1 passed
+w1 passed
+s1 passed
+n1 passed
+e1 passed
+W0 passed
+W passed
+noLetter1 passed
+Wneg10 passed
+W10001 passed
+failTest failed

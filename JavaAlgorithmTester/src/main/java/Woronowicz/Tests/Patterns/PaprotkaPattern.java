@@ -15,7 +15,8 @@ public enum PaprotkaPattern {
     A10B225("10","2,2,5",new String[]{"klops"}), // to much factors
     A0Be("0","",new String[]{"klops"}), // A zero
     AeB0("","0",new String[]{"klops"}), // B zero
-    AeBe("","",new String[]{"klops"}); // B n B empty
+    AeBe("","",new String[]{"klops"}), // B n B empty
+    failTest("","",new String[]{"this test supose to fail"}); // B n B empty
 
     private String firstLine;
     private String secondLine;

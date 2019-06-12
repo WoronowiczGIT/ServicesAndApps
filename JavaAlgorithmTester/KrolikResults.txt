@@ -1,0 +1,13 @@
+singleRow passed
+nameWOBracers passed
+doubleNameSameColumn passed
+doubleNameDifferentColumn passed
+nameAtBottom passed
+nameWOValues passed
+nameAsNumber passed
+tripleBracer passed
+maxValue passed
+minValue passed
+negativeNumbers passed
+trash passed
+failTest failed
