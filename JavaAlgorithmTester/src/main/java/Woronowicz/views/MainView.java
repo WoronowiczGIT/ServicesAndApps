@@ -1,4 +1,4 @@
-package Woronowicz;
+package Woronowicz.views;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

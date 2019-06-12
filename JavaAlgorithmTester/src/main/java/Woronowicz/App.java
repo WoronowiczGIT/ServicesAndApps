@@ -1,5 +1,7 @@
 package Woronowicz;
 
+import Woronowicz.controllers.MainViewController;
+import Woronowicz.views.MainView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

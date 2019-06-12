@@ -1,5 +1,7 @@
-package Woronowicz;
+package Woronowicz.controllers;
 
+import Woronowicz.views.MainView;
+import Woronowicz.TestRunner;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
