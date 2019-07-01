@@ -1,0 +1,31 @@
+max temp wynikowa <= 90
+min temp wynikowa >= 1
+max temp wejscia <= 90
+min temp wejscia >= 1
+
+maxymalna ilość wymaganego paliwa 100 000 000 L = 100 000 m^3
+maxymalna ilosc kranów 1 000 000
+
+dane wejsciowe muszą miec Minimum 5 miejsc po przecinku
+separatorem dziesietnym jest kropka
+
+Szukamy:
+    Czas napełnienia
+    Temperatura finalna
+
+
+wzór:
+
+t = t1*m1 + t2*m2 ... / m1 + m2 ...
+
+jednostki:
+    ilość potrzebnego paliwa = m^3
+    przepływowość = L /min
+    temp = °C
+
+wynik:
+    czas = sekundy
+    temperatura w zbiorniku = °C
+
+Obliczenia:
+    unikamy dzielenia żeby nie stracić na dokładności

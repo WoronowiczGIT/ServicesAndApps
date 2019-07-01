@@ -1,20 +1,19 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="JavaAlgorithmTester">
-    <output-path>$PROJECT_DIR$/out/artifacts/JavaAlgorithmTester</output-path>
+  <artifact type="javafx" name="TimeMenager">
+    <output-path>$PROJECT_DIR$/out/artifacts/TimeMenager</output-path>
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="Woronowicz.App" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
-        <option name="nativeBundle" value="msi" />
         <option name="title" value="" />
         <option name="vendor" value="" />
         <option name="version" value="" />
       </options>
     </properties>
     <root id="root">
-      <element id="archive" name="JavaAlgorithmTester.jar">
-        <element id="module-output" name="JavaAlgorithmTester" />
+      <element id="archive" name="TimeMenager.jar">
+        <element id="module-output" name="TimeMenager" />
       </element>
     </root>
   </artifact>

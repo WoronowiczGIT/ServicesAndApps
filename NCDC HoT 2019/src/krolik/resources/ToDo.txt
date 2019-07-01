@@ -1,0 +1,7 @@
+
+Wyodrębnić gdzieś dane statyczne.
+       -> np validations podzielić na validators i assertions, gdzie assertions zawiera dane statyczne
+
+Wyeksportować readera do osobnej klasy
+Zmienić nazwy plików na z dużej litery
+Rozbić volume GalacticValidator na volume GalacticValidator i output GalacticValidator

@@ -1,0 +1,55 @@
+Zadanie 3. (maksymalnie 75 punktów)
+
+Kotka Paprotka, zrzuciła donicę, z nomen omen paprotką. Popatrzyła z dumą na swoje dzieło, fuknęła i wróciła do swoich zajęć, tj. wygrzewania się na parapecie w siedzibie NASA.
+
+Heh - pomyślał mądry pies Sebastian - rozłożyła ją na czynniki pierwsze. Pani Jolanta, inżynier lotu, bardzo lubiła tę paprotkę. Może udałoby się ją poskładać? Tyle, że czasem brakuje pewnych elementów.
+
+Trzeba stworzyć model matematyczny doniczki i odwrócić proces.
+
+Dane są (albo i nie):
+* W pierwszej linii - doniczka - liczba (może brakować tej liczby, ale wtedy mamy pewność, że mamy wszystkie czynniki pierwsze)
+* W drugiej linii oddzielone przecinkami czynniki pierwsze (ich liczba może być równa liczbie wszystkich czynników pierwszych, ale nie musi. Nadmiar czynników oznacza, że dane wejściowe są błędne)
+Wszystkie liczby są liczbami naturalnymi, większymi od jeden.
+
+Plik z programem powinien nazywać się Paprotka.java
+
+Twój program zostanie skompilowany następującą komendą:
+javac Paprotka.java
+
+Program będzie uruchamiany komendą:
+java Paprotka < plik.csv
+
+Przykładowy stdin (w formie pliku csv - każdy wiersz kończy się znakiem końca linii):
+48
+2,2,2,2,3
+
+Odpowiedzią jest:
+* w pierwszej linii - liczba (doniczka)
+* w drugiej linii - oddzielone przecinkami - BRAKUJĄCE czynniki pierwsze.
+
+czyli dla przykładu powyżej odpowiedź to:
+48
+
+(w pierwszej linii 48, w drugiej linii po prostu znak końca linii, bo nie brakowało żadnych czynników pierwszych).
+
+Gdyby w pliku wejściowym było:
+48
+2,2,2,2
+odpowiedzią byłoby:
+48
+3
+
+Gdyby w pliku wejściowym było:
+48
+
+wówczas odpowiedzią byłoby:
+48
+2,2,2,2,3
+
+Gdyby w pliku wejściowym było:
+
+2,2,2,2,3
+wówczas odpowiedzią byłoby:
+48
+
+itd.

@@ -35,19 +35,19 @@ public class ConnectionBoxController {
 
         readCurrentData();
     }
+    public final void logINFO(String msg){
+        logger.info(this.getClass().getSimpleName()+" "+msg);
+    }
 
     public void readCurrentData() {
         data = connection.readData(configFile);
         if (connection.validateFroamt(data)) {
-           // System.out.println("loading metadata");
-            logger.info("reading connection data from filedata");
+            logINFO("reading connection data from file data");
             boxView.getAddressField().setText(data.get(0));
             boxView.getPortField().setText(data.get(1));
             boxView.getUsernameField().setText(data.get(2));
             boxView.getPasswordField().setText(data.get(3));
         }
-
-
     }
 
     private EventHandler changeAddress = new EventHandler() {

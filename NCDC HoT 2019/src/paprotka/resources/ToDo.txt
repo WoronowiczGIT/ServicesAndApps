@@ -1,0 +1,34 @@
+StdOut jako 2 linie
+każdy program musi się zakończyć kodem 0!!!!<<<<<<<<<<< -<< czyli ppo prostu się nie wysypać
+1 linia liczba
+2 linia brakujące czynniki pierwsze lub \n
+
+brakujace czynniki pierwsze wypisujemy po przecinku, na końcu wstawiając tylko \n
+!wszystkie czynniki mogą być brakujące
+
+jeżeli pierwsza linia jest pusta wówczas zwracamy
+1 linia - wynik ich mnożenia
+2 linia - \n
+
+zakres - liczby naturalne > 1;
+w wypadku nadmiaru czynników -> błąd -> klops.
+
+czynniki pierwsze trzeba zwrócić wedle kolejnościu rozkładu, od najmniejszego do największego
+
+
+validacja:
+    iloczyn
+        - zawiera dokładnie jedną liczbę, albo nic
+        - jeżeli iloczyn nie dzieli się bez reszty przez iloczyn czynnikio ->klops
+    czynniki
+
+zmienić spośob przypisywania typów do lini;
+
+zwrócić uwge na efektywność kiedy ciąg czynników pierwszych składa się z samych dużych liczb pierwszych
+
+sprawdz czy Calculator.numberToFactors może się wysypać przy nextProbablePrime
+
+wywalić program do kontrolera
+w mainie zostawić setup
+
+Zunifikować algorytmy?

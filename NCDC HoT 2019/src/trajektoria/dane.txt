@@ -1,0 +1,24 @@
+Zadanie 4. (maksymalnie 75 punktów)
+
+Trajektoria kosmolotu.
+Borsuk Wasyl nie dał wiary zapewnieniom sarenki Kasi, że tym razem paliwo mu w locie nie zamarznie i stanowczo odmówił pilotowania kosmolotu. Naturalnym kandydatem do roli pilota wydał się zły wilk Błażej...
+Zwierzątka szczęśliwie wystartowały na Księżyc.
+Żółw Wiktor niespecjalnie ogarnął co się wydarzyło, ponieważ wszystko działo się zbyt szybko.
+Poza tym, kiedy silniki odpaliły, schował się w skorupie (taki trochę strusi odruch).
+Prosi Ciebie o pomoc w narysowaniu trajektorii lotu, żeby mógł sobie wszystko obejrzeć na spokojnie.
+
+Zły wilk Błażej, z nieznanych względów, prowadził kosmolot nie po linii prostej, lecz po kursie łamanym... Wyglądało jakby tropił węża - trajektoria lotu przypominała przebieg trójkątny. Narysuj trajektorię, dla podanej na wejściu amplitudy i długość lotu, wg przykładów.
+
+Maksymalna długość ścieżki lotu (zwizualizowana liczbą gwiazdek), to 50000
+maksymalna amplituda ścieżki lotu, to 50000. Obie wartości są większe od zera.
+
+Plik z programem powinien nazywać się Trajektoria.java
+
+Twój program zostanie skompilowany następującą komendą:
+javac Trajektoria.java
+
+Program będzie uruchamiany komendą:
+java Trajektoria <amplituda> <dlugosc_lotu>
+
+Przykładowe wyniki działania programu znajdziesz w pliku Trajektoria.png. W przykładach spacje są przedstawione jako kolorowe kropki.
+

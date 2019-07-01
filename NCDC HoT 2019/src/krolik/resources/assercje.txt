@@ -1,0 +1,5 @@
+jeżeli nazwa występuje więcej niż 1 raz -> klops
+jeżeli nazwa nie występuje w żadnej kolumnie -> klops
+jeżeli w kolumnie nie ma żadnej poprawnej wartości -> klops
+jeżeli podanych jest więcej niż jeden parametr -> klops
+jeżeli nazwa występuje więcej niż raz ale w tej samej kolumnie -> podaj wynik

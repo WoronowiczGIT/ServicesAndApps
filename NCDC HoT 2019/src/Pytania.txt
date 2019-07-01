@@ -1,0 +1,3 @@
+﻿wilk:
+
+czy jeżeli kran napełni sie ponizej 0.00001sec to 0 czy klops

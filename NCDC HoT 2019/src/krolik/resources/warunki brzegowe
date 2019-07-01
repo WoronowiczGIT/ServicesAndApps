@@ -1,0 +1,10 @@
+ liczba kranów 0
+
+ liczba kranów 1, minimalny ciąg 0.00001
+
+ maxymalna ilość wymaganego paliwa 100 000 000 L = 100 000 m^3
+ maxymalna ilosc kranów 1 000 000
+   - Co się stanie jeśli super mocne krany napełnią statek poniżej 0.00001 sekundy?
+   - Co się stanie kiedy super słabe krany nigdy nie napełnią statku?
+
+ obie dane w danym rekordzie muszą być poprawne!!

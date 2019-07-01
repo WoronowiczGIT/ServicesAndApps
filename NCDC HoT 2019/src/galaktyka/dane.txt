@@ -1,0 +1,26 @@
+Zadanie 5 (maksymalnie 150 punktów)
+
+Galaktyka spiralna
+Jeżyk Mirek bardzo lubi oglądać obiekty głębokiego nieba w swoim małym refraktorze.
+Galaktyki składają się z gwiazdek i pustej przestrzeni (teleskop jeżyka Mirka jest za mały, by dostrzec więcej). Czasami jednak jeżyk Mirek myśli jak by to było, gdyby miał teleskop z dużym lustrem. Zamiast dawać jeżykowi Mirkowi jabłko (jeże nie jedzą jabłek!), narysuj jak wyglądałaby jego ulubiona galaktyka w teleskopie.
+
+podana jest wielkość teleskopu (1,2,3, ... 10000)
+ścieżka w galaktyce ma zawsze szerokość 1 spacji
+
+jako parametr podajemy także orientację (N,E,S,W)
+
+Po narysowaniu obrazu galaktyki, należy podać długość spirali, w latach świetlnych, przy czym jedna spacja, reprezentuje jeden rok świetlny
+
+Plik z programem powinien nazywać się Galaktyka.java
+
+Twój program zostanie skompilowany następującą komendą:
+javac Galaktyka.java
+
+Program będzie uruchamiany komendą:
+java Galaktyka <wielkosc_teleskopu><orientacja>
+
+Przykładowe wyniki działania programu znajdziesz w plikach Galaktyka1.png i Galaktyka2.png. W przykładach spacje są przedstawione jako kolorowe kropki.
+
+Kod(y) programu/ów odeślij nam odpowiadając na tę wiadomość.
+
+Powodzenia!

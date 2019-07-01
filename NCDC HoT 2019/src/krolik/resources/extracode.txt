@@ -1,0 +1,18 @@
+      System.out.println("time in seconds "+timeInSeconds.setScale(7,RoundingMode.HALF_EVEN).stripTrailingZeros());
+            System.out.println("temp"+temperature.setScale(7,RoundingMode.FLOOR).stripTrailingZeros());
+            System.out.println("time in minutes "+ timeInMinutes);
+            System.out.println("liczba kranow "+
+                     expectedCapacity
+                             .multiply(BigDecimal.valueOf(1000))
+                             .divide(timeInMinutes
+                            .multiply(BigDecimal.valueOf(1))
+                            .setScale(10,RoundingMode.HALF_EVEN))
+                    .setScale(10,RoundingMode.HALF_EVEN));
+            // total capacity
+
+            BigDecimal vol = timeInMinutes
+                    .multiply(totalFlowRate)
+                    .setScale(20)
+                    .stripTrailingZeros();
+
+                     System.out.println(formatter.format(vol));

@@ -1,0 +1,6 @@
+maxymalna długość 50 000
+maxymalna amplituda 50 000
+
+dlugosc & amplituda > 0, i należy do n,
+
+zakładam, że wielkość buffora ekranu jest ustawiona propocjonalnie do zadanych parametrów
